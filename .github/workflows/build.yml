@@ -10,6 +10,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Free Disk Space & Increase Swap
+      run: |
+        sudo swapoff -a
+        sudo rm -f /swapfile
+        sudo dd if=/dev/zero of=/swapfile bs=1M count=10240
+        sudo chmod 600 /swapfile
+        sudo mkswap /swapfile
+        sudo swapon /swapfile
+
     - name: Checkout Repository
       uses: actions/checkout@v4
 
