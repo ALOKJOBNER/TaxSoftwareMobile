@@ -41,7 +41,11 @@ jobs:
           libavcodec-dev \
           zlib1g-dev \
           autoconf \
+          automake \
           libtool \
+          libltdl-dev \
+          m4 \
+          gettext \
           pkg-config \
           ccache \
           zip \
