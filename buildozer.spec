@@ -4,6 +4,7 @@ package.name = taxsoftwaremobile
 package.domain = org.alok
 source.dir = .
 source.include_exts = py,png,json
+source.main = mobile_main.py
 version = 1.0.0
 requirements = python3,kivy
 
