@@ -18,6 +18,12 @@ jobs:
       with:
         python-version: '3.10'
 
+    - name: Set up Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
     - name: Install System Dependencies
       run: |
         sudo apt-get update
@@ -34,7 +40,6 @@ jobs:
           libavformat-dev \
           libavcodec-dev \
           zlib1g-dev \
-          openjdk-17-jdk \
           autoconf \
           libtool \
           pkg-config \
@@ -49,6 +54,7 @@ jobs:
 
     - name: Build APK with Buildozer (Auto accept licenses)
       run: |
+        export JAVA_HOME=$JAVA_HOME_17_X64
         yes | buildozer -v android debug
 
     - name: Upload APK
