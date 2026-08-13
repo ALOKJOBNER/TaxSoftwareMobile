@@ -6,7 +6,7 @@ source.dir = .
 source.include_exts = py,png,json
 source.main = mobile_main.py
 version = 1.0.0
-requirements = python3,kivy==2.3.0
+requirements = python3==3.11.0,kivy==2.3.0
 
 orientation = portrait
 osx.python_version = 3
