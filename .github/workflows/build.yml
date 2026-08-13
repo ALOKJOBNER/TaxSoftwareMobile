@@ -7,26 +7,26 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
 
-    - name: Get Date
-      id: get-date
-      run: echo "date=$(date +'%Y%m%d')" >> $GITHUB_ENV
-
-    - name: Cache Buildozer global directory
-      uses: actions/cache@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
       with:
-        path: ~/.buildozer
-        key: buildozer-global-${{ hashFiles('buildozer.spec') }}
+        python-version: '3.10'
 
-    - name: Build with Buildozer Action
-      uses: ArtemSuldin/buildozer-action@v1.2
-      with:
-        command: buildozer -v android debug
-        submodule_update: false
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential libssl-dev libffi-dev python3-dev ccache git zip unzip openjdk-17-jdk autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake
+        pip install --upgrade pip
+        pip install buildozer cython==0.29.33 kivy
+
+    - name: Build APK with Buildozer
+      run: |
+        buildozer -v android debug
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v3
