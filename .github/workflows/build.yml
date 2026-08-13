@@ -52,9 +52,19 @@ jobs:
         python -m pip install --upgrade pip setuptools
         pip install buildozer "cython<3.0.0" kivy
 
-    - name: Build APK with Buildozer
+    - name: Accept Android SDK Licenses & Build
       run: |
-        buildozer -v android debug
+        mkdir -p ~/.android
+        touch ~/.android/repositories.cfg
+        export APP_ANDROID_ACCEPT_SDK_LICENSE=1
+        buildozer -v android debug <<EOF
+        y
+        y
+        y
+        y
+        y
+        y
+        EOF
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
